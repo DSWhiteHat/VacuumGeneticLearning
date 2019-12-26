@@ -1,21 +1,30 @@
 float wallX1, wallY1;
 
 ArrayList<Wall> walls = new ArrayList<Wall>();
-Roomba roomba = new Roomba(0, 0, 30, #cc2020);
+ArrayList<Roomba> roombas = new ArrayList<Roomba>();
+//Roomba roomba = new Roomba(0, 500, 30, #cc2020);
+
+final float friction = -.0009;
+final float bounce = .3;
+
+final float pi = -PI;
+
+boolean paused = true;
 
 void setup()
 {
-  roomba.setVelocity(new PVector(1, 0));
-  roomba.setTheta(PI / 2);
-  roomba.setAcceleration(.001);
+  roombas.add(new Roomba(100, 500, 30, #cc2020));
+  roombas.add(new Roomba(1500, 500, 30, #20cc20));
+  roombas.get(0).setVelocity(new PVector(10, 0));
+  roombas.get(0).setTheta(pi * 3 / 2);
+  roombas.get(0).setAcceleration(.002);
+  roombas.get(1).setVelocity(new PVector(-5, -2));
   size(1600, 900);
-  frameRate(300);
+  frameRate(200);
 }
 
 void draw()
 {
-  roomba.update();
-  
   if(wallX1 == 0.0)
   {
     background(#202020);
@@ -25,16 +34,33 @@ void draw()
     background(#20ff20);
   }
   
-  for(Wall w: walls)
+  if(!paused)
   {
-    w.update();
-    w.display();
+    for(Wall w: walls)
+    {
+      w.update();
+    }
+    for(Roomba r: roombas)
+    {
+      r.update();
+    }
   }
   
-  roomba.display();
+  for(Wall w: walls)
+  {
+    w.display();
+  }
+  for(Roomba r: roombas)
+  {
+    r.display();
+  }
+  
+  textSize(30);
+  fill(#ffffff);
+  text("Framerate: " + Math.round(frameRate), 100, 100);
 }
 
-void mouseClicked()
+void mousePressed()
 {
   if(wallX1 == 0.0)
   {
@@ -45,5 +71,13 @@ void mouseClicked()
   {
     walls.add(new Wall(wallX1, wallY1, mouseX, mouseY, #cccccc));
     wallX1 = 0.0;
+  }
+}
+
+void keyPressed()
+{
+  if(key == ' ')
+  {
+    paused = !paused;
   }
 }

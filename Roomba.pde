@@ -18,13 +18,29 @@ public class Roomba
   public void update()
   {
     velocity.add(PVector.fromAngle(theta).mult(acceleration));
+   
+    PVector f = velocity.copy();
+    f.normalize();
+    f.mult(friction);
+    velocity.add(f);   
+
     position.add(velocity);
   }
   
   public void display()
   {
     fill(c);
-    circle(position.x, position.y, r);
+    stroke(#000000);
+    circle(position.x, position.y, r * 2);
+    
+    stroke(#ffffff);
+    line(position.x, position.y, position.x + PVector.fromAngle(theta).mult(acceleration).x * 10000, position.y + PVector.fromAngle(theta).mult(acceleration).y * 10000);
+    
+    stroke(#00ff00);
+    line(position.x, position.y, position.x + PVector.fromAngle(atan(velocity.y / velocity.x)).mult(friction).x * 10000, position.y + PVector.fromAngle(atan(velocity.y / velocity.x)).mult(friction).y * 10000);
+    
+    stroke(#0000ff);
+    line(position.x, position.y, position.x + velocity.x * 100, position.y + velocity.y * 100);
   }
   
   public float getX() { return position.x; }

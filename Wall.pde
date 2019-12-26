@@ -44,33 +44,46 @@ public class Wall
   
   public boolean colliding()
   {
-    float testX = 0.0, testY = 0.0, distX = 0.0, distY = 0.0, distance = 0.0;
-    if(roomba.getX() < x1)
+    for(Roomba r: roombas)
     {
-      testX = x1;
-    }
-    else if(roomba.getX() > x2)
-    {
-      testX = x2;   
-    }
-  
-    if(roomba.getY() < y1)
-    {
-      testY = y1;
-    }
-    else if(roomba.getY() > y2)
-    {
-      testY = y2;   
-    }
-      
-    distX = roomba.getX() - testX;
-    distY = roomba.getY() - testY;
-    distance = sqrt((float) (Math.pow(distX, 2) + Math.pow(distY, 2)));
-      
-    if (distance <= roomba.getRadius())
-    {
-      println("yo");
-      return true;
+      float testX = r.getX(), testY = r.getY(), distX = 0.0, distY = 0.0, distance = 0.0;
+      if(r.getX() < x1)
+      {
+        testX = x1;
+      }
+      else if(r.getX() > x2)
+      {
+        testX = x2;   
+      }
+    
+      if(r.getY() < y1)
+      {
+        testY = y1;
+      }
+      else if(r.getY() > y2)
+      {
+        testY = y2;   
+      }
+        
+      distX = r.getX() - testX;
+      distY = r.getY() - testY;
+      distance = sqrt((float) (Math.pow(distX, 2) + Math.pow(distY, 2)));
+        
+      if (distance <= r.getRadius())
+      {
+        if(testX != r.getX())
+        {
+          r.setVelocity(new PVector(r.getVelocity().x * -1, r.getVelocity().y));
+          r.setX(r.getX() + r.getVelocity().x);
+        }
+        if(testY != r.getY())
+        {
+          r.setVelocity(new PVector(r.getVelocity().x, r.getVelocity().y * -1));
+          r.setY(r.getY() + r.getVelocity().y);
+        }
+        r.setVelocity(r.getVelocity().mult(bounce));
+        return true;
+      } 
     }
     return false;
 }
