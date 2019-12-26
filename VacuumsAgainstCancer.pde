@@ -15,16 +15,18 @@ void setup()
 {
   roombas.add(new Roomba(100, 500, 30, #cc2020));
   roombas.add(new Roomba(1500, 500, 30, #20cc20));
-  roombas.get(0).setVelocity(new PVector(10, 0));
+  roombas.get(0).setVelocity(new PVector(3, 0));
   roombas.get(0).setTheta(pi * 3 / 2);
-  roombas.get(0).setAcceleration(.002);
+  roombas.get(0).setAcceleration(.04);
   roombas.get(1).setVelocity(new PVector(-5, -2));
   size(1600, 900);
   frameRate(200);
+  background(#202020);
 }
 
 void draw()
 {
+  /*
   if(wallX1 == 0.0)
   {
     background(#202020);
@@ -33,6 +35,7 @@ void draw()
   {
     background(#20ff20);
   }
+  */
   
   if(!paused)
   {
@@ -55,9 +58,11 @@ void draw()
     r.display();
   }
   
+  /*
   textSize(30);
   fill(#ffffff);
   text("Framerate: " + Math.round(frameRate), 100, 100);
+  */
 }
 
 void mousePressed()

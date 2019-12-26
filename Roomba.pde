@@ -30,9 +30,10 @@ public class Roomba
   public void display()
   {
     fill(c);
-    stroke(#000000);
+    noStroke();
     circle(position.x, position.y, r * 2);
     
+    /*
     stroke(#ffffff);
     line(position.x, position.y, position.x + PVector.fromAngle(theta).mult(acceleration).x * 10000, position.y + PVector.fromAngle(theta).mult(acceleration).y * 10000);
     
@@ -41,6 +42,7 @@ public class Roomba
     
     stroke(#0000ff);
     line(position.x, position.y, position.x + velocity.x * 100, position.y + velocity.y * 100);
+    */
   }
   
   public float getX() { return position.x; }

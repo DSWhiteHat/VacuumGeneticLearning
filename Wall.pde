@@ -67,7 +67,7 @@ public class Wall
         
       distX = r.getX() - testX;
       distY = r.getY() - testY;
-      distance = sqrt((float) (Math.pow(distX, 2) + Math.pow(distY, 2)));
+      distance = sqrt((float) (pow(distX, 2) + pow(distY, 2)));
         
       if (distance <= r.getRadius())
       {
