@@ -31,9 +31,9 @@ public class Wall
     this.c = c;
   }
   
-  public boolean update()
+  public void update()
   {
-    return colliding();
+    collision();
   }
   
   public void display()
@@ -42,7 +42,7 @@ public class Wall
     rect(x1, y1, x2 - x1, y2 - y1);
   }
   
-  public boolean colliding()
+  public void collision()
   {
     for(Roomba r: roombas)
     {
@@ -82,10 +82,8 @@ public class Wall
           r.setY(r.getY() + r.getVelocity().y);
         }
         r.setVelocity(r.getVelocity().mult(bounce));
-        return true;
       } 
     }
-    return false;
 }
   
   public float getX1() { return x1; }

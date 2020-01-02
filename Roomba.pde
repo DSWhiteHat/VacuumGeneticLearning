@@ -8,11 +8,18 @@ public class Roomba
   private float theta;
   private color c;
   
+  private PGraphics map;
+  
+  private float fitness;
+  
   public Roomba(float x, float y, float r, color c)
   {
     this.position = new PVector(x, y);
     this.r = r;
     this.c = c;
+    
+    map = createGraphics(1600, 900);
+    fitness = 0;
   }
   
   public void update()
@@ -30,8 +37,14 @@ public class Roomba
   public void display()
   {
     fill(c);
-    noStroke();
+    stroke(#000000);
     circle(position.x, position.y, r * 2);
+    
+    map.beginDraw();
+    map.fill(c);
+    map.noStroke();
+    map.circle(position.x, position.y, r * 2);
+    map.endDraw();
     
     /*
     stroke(#ffffff);
@@ -62,4 +75,13 @@ public class Roomba
   
   public float getTheta() { return theta; }
   public void setTheta(float theta) { this.theta = theta; }
+  
+  public color getColor() { return c; }
+  public void setColor(color c) { this.c = c; }
+  
+  public PGraphics getMap() { return map; }
+  public void setMap(PGraphics map) { this.map = map; }
+  
+  public float getFitness() { return fitness; }
+  public void setFitness(float fitness) { this.fitness = fitness; }
 }
